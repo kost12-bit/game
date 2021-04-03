@@ -1,49 +1,52 @@
 document.onkeydown = checkButton;
-
-let cube = {
-    x: 0,
-    y: 0,
-    width:56,
-    height:56,
-    transition:.25,
-    stop:50
-}
-
 function checkButton(event) {
-    if (event.keyCode ===37){
-        console.log("Arrowleft");
-        cube.x -=10;
-        renderCube(cube);
+
+    if (event.keyCode === 37) {
+        console.log("ArrowLeft");
+        if (cube.x > 0) {
+            cube.x -= cube.step;
+        }
     }
 
-    else if (event.keyCode ===39) {
-        console.log("ArrowRight");
-        cube.x +=10;
-        renderCube(cube);
-    }
-
-    else if (event.keyCode ===38) {
+    if (event.keyCode === 38) {
         console.log("ArrowUp");
-        cube.y -=10;
-        renderCube(cube);
+        if (cube.y > 0) {
+            cube.y -= cube.step;
+        }
     }
 
-    else if (event.keyCode ===40) {
+    if (event.keyCode === 39) {
+        console.log("ArrowRight");
+        if (cube.x < map.width) {
+            cube.x += cube.step;
+        }
+    }
+
+    if (event.keyCode === 40) {
         console.log("ArrowDown");
-        cube.y +=10;
-        renderCube(cube);
+        if (cube.y < map.height) {
+            cube.y += cube.step;
+        }
     }
 
-
-
-};
-
-function renderCube() {
-    document.getElementById("cube").style.top = cube.x + 'px';
-    document.getElementById("cube").style.left = cube.y + 'px';
-    document.getElementById("cube").style.left = cube.width + 'px';
-    document.getElementById("cube").style.left = cube.height + 'px';
-    document.getElementById("cube").style.left = 'ease' + cube.transition;
+    renderCube(cube);
 }
 
-renderCube(cube.x, cube.y);
+function renderCube(cube) {
+    document.getElementById(cube.id).style.top = cube.y + 'px';
+    document.getElementById(cube.id).style.left = cube.x + 'px';
+    document.getElementById(cube.id).style.width = cube.width + 'px';
+    document.getElementById(cube.id).style.height = cube.height + 'px';
+    document.getElementById(cube.id).style.transition = 'ease ' + cube.trnstn + 's';
+    document.getElementById(cube.id).style.backgroundColor = cube.color;
+}
+
+renderCube(cube);
+
+function renderMap(map){
+    document.getElementById('map').style.top = map.y + 'px';
+    document.getElementById('map').style.left = map.x + 'px';
+    document.getElementById('map').style.width = map.width + 'px';
+    document.getElementById('map').style.height = map.height + 'px';
+    document.getElementById('map').style.backgroundColor = map.color;
+}
